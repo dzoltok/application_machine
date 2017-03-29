@@ -1,6 +1,8 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    aasm (4.12.0)
+      concurrent-ruby (~> 1.0)
     actionmailer (4.2.8)
       actionpack (= 4.2.8)
       actionview (= 4.2.8)
@@ -148,6 +150,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  aasm
   byebug
   coffee-rails (~> 4.1.0)
   jbuilder (~> 2.0)

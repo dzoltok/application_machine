@@ -23,7 +23,7 @@ class Goal < ActiveRecord::Base
       transitions from: :triage, to: :ongoing
     end
 
-    event :quarterly_rebalance, do
+    event :quarterly_rebalance do
       transitions from: :ongoing, to: :ongoing
     end
   end

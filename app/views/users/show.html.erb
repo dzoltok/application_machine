@@ -1,0 +1,19 @@
+<p>
+  <strong>Email Address:</strong>
+  <%= @user.email_address %>
+</p>
+
+<div>
+  <strong>Goals:</strong>
+
+  <ul>
+    <% @user.goals.each do |goal| %>
+      <li>
+        <p><%= goal.goal_type %></p>
+      </li>
+    <% end %>
+  </ul>
+</div>
+
+<%= link_to 'Edit', edit_user_path(@user) %> |
+<%= link_to 'Back', users_path %>

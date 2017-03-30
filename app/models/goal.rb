@@ -4,11 +4,11 @@ class Goal < ActiveRecord::Base
   belongs_to :user
 
   aasm do
-    after_all_transitions :log_status_change
+    after_all_events :log_status_change
 
     state :free, initial: true
-    state :applying
-    state :triage, enter: :notify_triage_required
+    state :applying, after_exit: :thank_user_for_applying
+    state :triage, after_enter: :notify_triage_required
     state :ongoing
 
     event :apply_to_managed, success: :track_user_started_application do
@@ -60,4 +60,7 @@ class Goal < ActiveRecord::Base
     user.activities.create(public_details: 'Finished Application', private_details: 'Finished Application (triage required)', happened_at: DateTime.now)
   end
 
+  def thank_user_for_applying
+    UserMailer.thanks_for_applying_email(user).deliver
+  end
 end

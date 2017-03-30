@@ -5,6 +5,7 @@ class Goal < ActiveRecord::Base
 
   aasm do
     after_all_events :log_status_change
+    after_all_events :create_event_tasks
 
     state :free, initial: true
     state :applying, after_exit: :thank_user_for_applying
@@ -39,6 +40,15 @@ class Goal < ActiveRecord::Base
   end
 
   private
+
+  def create_event_tasks
+    event_name = aasm.current_event.to_s.gsub(/\!/, '')
+
+    recipes_for_event = TaskRecipe.where(event: event_name)
+    Rails.logger.info("recipes_for_event: #{recipes_for_event.pluck(:description)}")
+
+    recipes_for_event.each { |recipe| recipe.create_task }
+  end
 
   def notify_triage_required
     Task.create(description: "Follow up with user #{user.id} in triage", assigned_to: 'enrollment', due_at: 1.day.from_now)

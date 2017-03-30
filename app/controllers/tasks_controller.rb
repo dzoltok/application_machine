@@ -4,7 +4,11 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.json
   def index
-    @tasks = Task.all
+    if params[:assignee].present?
+      @tasks = Task.where(assigned_to: params[:assignee])
+    else
+      @tasks = Task.all
+    end
   end
 
   # GET /tasks/1

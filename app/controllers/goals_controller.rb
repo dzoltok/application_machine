@@ -10,31 +10,33 @@ class GoalsController < ApplicationController
   # POST /goals/1/fire_event.json
   def fire_event
     event = fire_event_params[:event]
-    unless Goal.aasm.events.map(&:name).include? event.to_sym
+    if @goal.aasm.events.map(&:name).include? event.to_sym
+      @goal.send("#{event}!")
+      format.html do
+        flash[:success] = 'Goal managed state has been updated.'
+        redirect_to @goal.user
+      end
+      format.json { render :show, status: :ok, location: @task }
+    else
       format.html do
         flash[:danger] = 'Event is invalid.'
         redirect_to @goal.user
       end
-      # format.json { render json: @user.errors, status: :unprocessable_entity }
+      format.json { render json: @goal.errors, status: :unprocessable_entity }
     end
-
-    @goal.send("#{event}!")
-    redirect_to @goal.user
   end
 
-
-
-
   private
+
   # Use callbacks to share common setup or constraints between actions.
   def set_goal
     @goal = Goal.find(params[:id])
   end
 
-  # # Never trust parameters from the scary internet, only allow the white list through.
-  # def user_params
-  #   params.require(:user).permit(:email_address)
-  # end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def goal_params
+    params.require(:goal).permit(:goal_type)
+  end
 
   def fire_event_params
     params.require(:goal).permit(:event)

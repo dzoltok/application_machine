@@ -1,28 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <title>ApplicationMachine</title>
+  <head>
+    <title>ApplicationMachine</title>
 
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <%= csrf_meta_tags %>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <%= csrf_meta_tags %>
 
-  <!-- Bootstrap CSS -->
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <!-- Bootstrap CSS -->
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
 
-</head>
-<body>
+  </head>
+  <body>
 
-<div class="container-fluid">
-  <%= render 'shared/navbar' %>
-  <% flash.each do |name, msg| %>
-    <%= content_tag :div, msg, class: "alert alert-#{name}", role: 'alert' %>
-  <% end %>
+    <div class="container-fluid">
+      <%= render 'shared/navbar' %>
 
-  <%= yield %>
-</div>
+      <% flash.each do |name, msg| %>
+        <%= content_tag :div, msg, class: "alert alert-#{name}", role: 'alert' %>
+      <% end %>
 
-<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-</body>
+      <%= yield %>
+    </div>
+
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  </body>
 </html>

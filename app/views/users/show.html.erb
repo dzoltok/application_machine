@@ -6,13 +6,27 @@
 <div>
   <strong>Goals:</strong>
 
-  <ul>
-    <% @user.goals.each do |goal| %>
-      <li>
-        <p><%= goal.goal_type %></p>
-      </li>
-    <% end %>
-  </ul>
+  <table class="table">
+    <thead>
+      <th>Type</th>
+      <th>State</th>
+      <th>Actions</th>
+    </thead>
+
+    <tbody>
+      <% @user.goals.each do |goal| %>
+        <tr>
+          <td><%= goal.goal_type %></td>
+          <td><%= goal.aasm.human_state %></td>
+          <td>
+            <% goal.aasm.events.each do |event| %>
+              <%= button_to Goal.aasm.human_event_name(event.name), fire_event_goal_path(goal), params: { 'goal[event]': event.name }, method: :post, class: 'btn btn-primary' %>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>
 
 <%= link_to 'Edit', edit_user_path(@user) %> |

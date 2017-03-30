@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
   resources :users
+  resources :goals, only: [:show] do
+    member do
+      post :fire_event
+    end
+  end
   resources :tasks
   resources :user_activities
 

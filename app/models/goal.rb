@@ -40,15 +40,13 @@ class Goal < ActiveRecord::Base
 
   private
 
-    def notify_triage_required
-      Task.create(description: "Follow up with user #{user.id} in triage", assigned_to: 'enrollment', due_at: 1.day.from_now)
-    end
+  def notify_triage_required
+    Task.create(description: "Follow up with user #{user.id} in triage", assigned_to: 'enrollment', due_at: 1.day.from_now)
+  end
 
   def log_status_change
     Rails.logger.info "#{DateTime.now.iso8601}: Goal #{id} changing from #{aasm.from_state} to #{aasm.to_state} (event: #{aasm.current_event})"
   end
-
-  private
 
   def track_user_started_application
     UserActivity.create(user: user, happened_at: DateTime.now, public_details: 'Started Application')

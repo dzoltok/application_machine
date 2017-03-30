@@ -20,4 +20,19 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  activerecord:
+    events:
+      goal:
+        apply_to_managed: "Apply to Managed"
+        flag_for_triage: "Flag for Triage"
+        resolve_triage: "Resolve Triage"
+        complete_application: "Complete Application"
+        quarterly_rebalance: "Perform Rebalance"
+        cancel_application: "Cancel"
+    attributes:
+      goal:
+        aasm_state:
+          free: Free
+          applying: Applying for Managed
+          triage: Triage Required
+          ongoing: Ongoing Maintenance

@@ -1,4 +1,10 @@
 class TaskRecipe < ActiveRecord::Base
+  TASK_CATEGORIES = [
+    'Enrollment',
+    'Trading',
+    'Premium',
+  ]
+
   def build_task
     Task.build(params_for_task)
   end

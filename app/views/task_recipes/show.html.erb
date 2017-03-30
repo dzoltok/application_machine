@@ -2,7 +2,7 @@
 
 <p>
   <strong>Event:</strong>
-  <%= @task_recipe.event %>
+  <%= Goal.aasm.human_event_name(@task_recipe.event) %>
 </p>
 
 <p>

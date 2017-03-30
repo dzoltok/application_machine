@@ -13,7 +13,7 @@
 
   <div class="field">
     <%= f.label :event %><br>
-    <%= f.text_field :event %>
+    <%= f.select :event, @events_for_select %>
   </div>
   <div class="field">
     <%= f.label :description %><br>
@@ -25,7 +25,7 @@
   </div>
   <div class="field">
     <%= f.label :category_name %><br>
-    <%= f.text_field :category_name %>
+    <%= f.select :category_name, @task_categories_for_select%>
   </div>
   <div class="actions">
     <%= f.submit %>

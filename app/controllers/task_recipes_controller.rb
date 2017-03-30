@@ -1,10 +1,11 @@
 class TaskRecipesController < ApplicationController
   before_action :set_task_recipe, only: [:show, :edit, :update, :destroy]
-
+  before_action :set_dropdown_options, only: [:edit, :new]
   # GET /task_recipes
   # GET /task_recipes.json
   def index
     @task_recipes = TaskRecipe.all
+    @events = Goal.aasm.events.map(&:name)
   end
 
   # GET /task_recipes/1
@@ -62,6 +63,12 @@ class TaskRecipesController < ApplicationController
   end
 
   private
+    def set_dropdown_options
+      @events = Goal.aasm.events.map(&:name)
+      @events_for_select = @events.map{ |event| [Goal.aasm.human_event_name(event), event] }
+      @task_categories_for_select = TaskRecipe::TASK_CATEGORIES
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_task_recipe
       @task_recipe = TaskRecipe.find(params[:id])

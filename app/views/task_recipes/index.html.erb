@@ -16,7 +16,7 @@
   <tbody>
     <% @task_recipes.each do |task_recipe| %>
       <tr>
-        <td><%= task_recipe.event %></td>
+        <td><%= Goal.aasm.human_event_name(task_recipe.event) %></td>
         <td colspan="2"><%= task_recipe.description %></td>
         <td><%= task_recipe.days_before_due %></td>
         <td><%= task_recipe.category_name %></td>

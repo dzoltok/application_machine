@@ -11,19 +11,19 @@
     </div>
   <% end %>
 
-    <div class="field">
-      <%= f.label :description %><br />
-      <%= f.text_area :description %>
-    </div>
-    <div class="field">
-      <%= f.label :assigned_to %><br />
-      <%= f.text_field :assigned_to %>
-    </div>
-    <div class="field">
-      <%= f.label :assigned_to %><br />
-      <%= f.datetime_local_field :due_at %>
-    </div>
+  <div class="field">
+    <%= f.label :description %><br />
+    <%= f.text_area :description %>
+  </div>
+  <div class="field">
+    <%= f.label :assigned_to %><br />
+    <%= f.text_field :assigned_to %>
+  </div>
+  <div class="field">
+    <%= f.label :due_at %><br />
+    <%= f.text_field :due_at %>
+  </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit 'Save', class: 'btn btn-primary' %>
   </div>
 <% end %>

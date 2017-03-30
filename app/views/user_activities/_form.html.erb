@@ -1,0 +1,33 @@
+<%= form_for(@user_activity) do |f| %>
+  <% if @user_activity.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user_activity.errors.count, "error") %> prohibited this user_activity from being saved:</h2>
+
+      <ul>
+      <% @user_activity.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :user_id %><br>
+    <%= f.text_field :user_id %>
+  </div>
+  <div class="field">
+    <%= f.label :happened_at %><br>
+    <%= f.datetime_select :happened_at %>
+  </div>
+  <div class="field">
+    <%= f.label :public_details %><br>
+    <%= f.text_field :public_details %>
+  </div>
+  <div class="field">
+    <%= f.label :private_details %><br>
+    <%= f.text_area :private_details %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

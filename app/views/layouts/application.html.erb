@@ -15,6 +15,7 @@
 <body>
 
 <div class="container-fluid">
+  <%= render 'shared/navbar' %>
   <% flash.each do |name, msg| %>
     <%= content_tag :div, msg, class: "alert alert-#{name}", role: 'alert' %>
   <% end %>

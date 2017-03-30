@@ -1,0 +1,26 @@
+<nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <a class="navbar-brand" href="#">Admin Panel</a>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item <%= 'active' if controller_name == 'users' %>">
+        <%= link_to users_path, class: 'nav-link' do %>
+            Users <%= content_tag(:span, '(current)', class: 'sr-only') if controller_name == 'users' %>
+        <% end %>
+      </li>
+      <li class="nav-item <%= 'active' if controller_name == 'task_recipes' %>">
+        <%= link_to '#', class: 'nav-link' do %>
+          Recipes <%= content_tag(:span, '(current)', class: 'sr-only') if controller_name == 'task_recipes' %>
+        <% end %>
+      </li>
+      <li class="nav-item <%= 'active' if controller_name == 'tasks' %>">
+        <%= link_to tasks_path, class: 'nav-link' do %>
+          Tasks <%= content_tag(:span, '(current)', class: 'sr-only') if controller_name == 'tasks' %>
+        <% end %>
+      </li>
+    </ul>
+  </div>
+</nav>

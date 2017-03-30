@@ -10,12 +10,17 @@ class GoalsController < ApplicationController
   # POST /goals/1/fire_event.json
   def fire_event
     event = fire_event_params[:event]
-    Rails.logger.info "running fire_event on #{event}"
-    @goal.send(event)
-    @goal.save!
+    unless Goal.aasm.events.map(&:name).include? event.to_sym
+      format.html do
+        flash[:danger] = 'Event is invalid.'
+        redirect_to @goal.user
+      end
+      # format.json { render json: @user.errors, status: :unprocessable_entity }
+    end
+
+    @goal.send("#{event}!")
     redirect_to @goal.user
   end
-
 
 
 

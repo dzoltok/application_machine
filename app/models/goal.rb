@@ -11,16 +11,16 @@ class Goal < ActiveRecord::Base
     state :triage, enter: :notify_triage_required
     state :ongoing
 
-    event :apply_to_managed do
-      transitions from: :free, to: :applying, success: :track_user_started_application
+    event :apply_to_managed, success: :track_user_started_application do
+      transitions from: :free, to: :applying
     end
 
-    event :flag_for_triage do
-      transitions from: :applying, to: :triage, success: :track_user_application_triage
+    event :flag_for_triage, success: :track_user_application_triage do
+      transitions from: :applying, to: :triage
     end
 
-    event :complete_application do
-      transitions from: :applying, to: :ongoing, success: :track_user_application_completed
+    event :complete_application, success: :track_user_application_completed do
+      transitions from: :applying, to: :ongoing
     end
 
     event :resolve_triage do
@@ -49,15 +49,15 @@ class Goal < ActiveRecord::Base
   end
 
   def track_user_started_application
-    UserActivity.create(user: user, happened_at: DateTime.now, public_details: 'Started Application')
+    user.activities.create(public_details: 'Started Application', happened_at: DateTime.now)
   end
 
   def track_user_application_completed
-    UserActivity.create(user: user, happened_at: DateTime.now, public_details: 'Finished Application')
+    user.activities.create(public_details: 'Finished Application', happened_at: DateTime.now)
   end
 
   def track_user_application_triage
-    UserActivity.create(user: user, happened_at: DateTime.now, public_details: 'Finished Application', private_details: 'Finished Application (triage required)')
+    user.activities.create(public_details: 'Finished Application', private_details: 'Finished Application (triage required)', happened_at: DateTime.now)
   end
 
 end

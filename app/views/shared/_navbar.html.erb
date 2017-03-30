@@ -12,7 +12,7 @@
         <% end %>
       </li>
       <li class="nav-item <%= 'active' if controller_name == 'task_recipes' %>">
-        <%= link_to '#', class: 'nav-link' do %>
+        <%= link_to task_recipes_path, class: 'nav-link' do %>
           Recipes <%= content_tag(:span, '(current)', class: 'sr-only') if controller_name == 'task_recipes' %>
         <% end %>
       </li>

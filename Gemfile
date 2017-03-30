@@ -23,6 +23,9 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
+# Use Puma as the web process server
+gem 'puma'
+
 # Use aasm to simulate state machine behavior
 gem 'aasm'
 

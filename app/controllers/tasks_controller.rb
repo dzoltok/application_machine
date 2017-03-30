@@ -28,10 +28,16 @@ class TasksController < ApplicationController
 
     respond_to do |format|
       if @task.save
-        format.html { redirect_to @task, notice: 'Task was successfully created.' }
+        format.html do
+          flash[:success] = 'Task was successfully created.'
+          redirect_to @task
+        end
         format.json { render :show, status: :created, location: @task }
       else
-        format.html { render :new }
+        format.html do
+          flash[:danger] = 'Task could not be created.'
+          render :new
+        end
         format.json { render json: @task.errors, status: :unprocessable_entity }
       end
     end
@@ -42,10 +48,16 @@ class TasksController < ApplicationController
   def update
     respond_to do |format|
       if @task.update(task_params)
-        format.html { redirect_to @task, notice: 'Task was successfully updated.' }
+        format.html do
+          flash[:success] = 'Task was successfully updated.'
+          redirect_to @task
+        end
         format.json { render :show, status: :ok, location: @task }
       else
-        format.html { render :edit }
+        format.html do
+          flash[:danger] = 'Task could not be updated.'
+          render :edit
+        end
         format.json { render json: @task.errors, status: :unprocessable_entity }
       end
     end
@@ -56,7 +68,10 @@ class TasksController < ApplicationController
   def destroy
     @task.destroy
     respond_to do |format|
-      format.html { redirect_to tasks_url, notice: 'Task was successfully destroyed.' }
+      format.html do
+        flash[:success] = 'Task was successfully destroyed.'
+        redirect_to tasks_url
+      end
       format.json { head :no_content }
     end
   end

@@ -12,15 +12,15 @@ class Goal < ActiveRecord::Base
     state :ongoing
 
     event :apply_to_managed do
-      transitions from: :free, to: :applying
+      transitions from: :free, to: :applying, success: :track_user_started_application
     end
 
     event :flag_for_triage do
-      transitions from: :applying, to: :triage
+      transitions from: :applying, to: :triage, success: :track_user_application_triage
     end
 
     event :complete_application do
-      transitions from: :applying, to: :ongoing
+      transitions from: :applying, to: :ongoing, success: :track_user_application_completed
     end
 
     event :resolve_triage do
@@ -46,6 +46,20 @@ class Goal < ActiveRecord::Base
 
   def log_status_change
     Rails.logger.info "#{DateTime.now.iso8601}: Goal #{id} changing from #{aasm.from_state} to #{aasm.to_state} (event: #{aasm.current_event})"
+  end
+
+  private
+
+  def track_user_started_application
+    UserActivity.create(user: user, happened_at: DateTime.now, public_details: 'Started Application')
+  end
+
+  def track_user_application_completed
+    UserActivity.create(user: user, happened_at: DateTime.now, public_details: 'Finished Application')
+  end
+
+  def track_user_application_triage
+    UserActivity.create(user: user, happened_at: DateTime.now, public_details: 'Finished Application', private_details: 'Finished Application (triage required)')
   end
 
 end

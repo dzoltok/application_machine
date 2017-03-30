@@ -23,6 +23,9 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
+# Use Puma as the web process server
+gem 'puma'
+
 # Use aasm to simulate state machine behavior
 gem 'aasm'
 
@@ -59,4 +62,5 @@ end
 
 group :production do
   gem 'rails_12factor' # Required by Heroku
+  gem 'sendgrid-ruby' # Send e-mail via SendGrid
 end

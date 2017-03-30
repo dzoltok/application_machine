@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :task_recipes
   resources :users
   resources :goals, only: [:show] do
     member do

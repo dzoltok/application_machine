@@ -1,0 +1,33 @@
+<%= form_for(@task_recipe) do |f| %>
+  <% if @task_recipe.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@task_recipe.errors.count, "error") %> prohibited this task_recipe from being saved:</h2>
+
+      <ul>
+      <% @task_recipe.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :event %><br>
+    <%= f.text_field :event %>
+  </div>
+  <div class="field">
+    <%= f.label :description %><br>
+    <%= f.text_area :description %>
+  </div>
+  <div class="field">
+    <%= f.label :days_before_due %><br>
+    <%= f.number_field :days_before_due %>
+  </div>
+  <div class="field">
+    <%= f.label :category_name %><br>
+    <%= f.text_field :category_name %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

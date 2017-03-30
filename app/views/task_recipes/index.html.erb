@@ -1,0 +1,33 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Task Recipes</h1>
+
+<table width="100%">
+  <thead>
+    <tr>
+      <th>Event</th>
+      <th colspan="2">Description</th>
+      <th>Days Before Due</th>
+      <th>Category Name</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @task_recipes.each do |task_recipe| %>
+      <tr>
+        <td><%= Goal.aasm.human_event_name(task_recipe.event) %></td>
+        <td colspan="2"><%= task_recipe.description %></td>
+        <td><%= task_recipe.days_before_due %></td>
+        <td><%= task_recipe.category_name %></td>
+        <td><%= link_to 'Show', task_recipe %></td>
+        <td><%= link_to 'Edit', edit_task_recipe_path(task_recipe) %></td>
+        <td><%= link_to 'Destroy', task_recipe, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Task recipe', new_task_recipe_path %>

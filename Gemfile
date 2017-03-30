@@ -59,4 +59,5 @@ end
 
 group :production do
   gem 'rails_12factor' # Required by Heroku
+  gem 'sendgrid-ruby' # Send e-mail via SendGrid
 end

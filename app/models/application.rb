@@ -61,9 +61,12 @@ class Application < ActiveRecord::Base
   end
 
   def create_event_tasks
+    tokens = {
+      email_address: user.email_address
+    }
     event_name = aasm.current_event.to_s.gsub(/\!$/, '')
     recipes_for_event = TaskRecipe.where(event: event_name)
-    recipes_for_event.each { |recipe| recipe.create_task }
+    recipes_for_event.each { |recipe| recipe.create_task(description_params: tokens) }
   end
 
   def submit_application_success

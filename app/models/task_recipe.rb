@@ -5,19 +5,20 @@ class TaskRecipe < ActiveRecord::Base
     'Premium',
   ]
 
-  def build_task
-    Task.build(params_for_task)
+  def build_task(options = {})
+    Task.build(params_for_task(options))
   end
 
-  def create_task
-    Task.create(params_for_task)
+  def create_task(options = {})
+    Task.create(params_for_task(options))
   end
 
   private
 
-  def params_for_task
+  def params_for_task(options = {})
+    Rails.logger.debug(options)
     {
-      description: description,
+      description: I18n.interpolate(description, options[:description_params]),
       due_at: days_before_due.days.from_now,
       assigned_to: ops_user_for_category,
     }

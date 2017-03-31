@@ -19,7 +19,11 @@
     <%= f.label :user_id %><br>
     <%= f.text_field :user_id %>
   </div>
-  <div class="actions">
+    <div class="field">
+      <%= f.check_box :triage_required %><%= f.label :triage_required %>
+    </div>
+
+    <div class="actions">
     <%= f.submit %>
   </div>
 <% end %>

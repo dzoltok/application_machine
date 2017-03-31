@@ -10,6 +10,7 @@
     <thead>
       <th>Goal</th>
       <th>State</th>
+      <th>Triage Required?</th>
       <th>Actions</th>
     </thead>
 
@@ -18,6 +19,7 @@
         <tr>
           <td><%= link_to application.goal, application %></td>
           <td><%= application.aasm.human_state %></td>
+          <td><%= application.triage_required? %></td>
           <td>
             <% application.aasm.events.each do |event| %>
               <%= button_to Application.aasm.human_event_name(event.name), fire_event_application_path(application), params: { 'application[event]': event.name }, method: :post, class: 'btn btn-primary' %>

@@ -1,12 +1,11 @@
-<p id="notice"><%= notice %></p>
+<h1>Applications</h1>
 
-<h1>Listing Applications</h1>
-
-<table>
+<table class="table">
   <thead>
     <tr>
       <th>Goal</th>
       <th>User</th>
+      <th>Triage Required?</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -15,7 +14,8 @@
     <% @applications.each do |application| %>
       <tr>
         <td><%= application.goal %></td>
-        <td><%= application.user %></td>
+        <td><%= application.user.email_address %></td>
+        <td><%= application.triage_required? %></td>
         <td><%= link_to 'Show', application %></td>
         <td><%= link_to 'Edit', edit_application_path(application) %></td>
         <td><%= link_to 'Destroy', application, method: :delete, data: { confirm: 'Are you sure?' } %></td>

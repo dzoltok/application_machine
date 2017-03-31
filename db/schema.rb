@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170331010410) do
+ActiveRecord::Schema.define(version: 20170331012441) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -19,9 +19,10 @@ ActiveRecord::Schema.define(version: 20170331010410) do
   create_table "applications", force: :cascade do |t|
     t.string   "goal"
     t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
     t.string   "aasm_state"
+    t.boolean  "triage_required"
   end
 
   add_index "applications", ["user_id"], name: "index_applications_on_user_id", using: :btree

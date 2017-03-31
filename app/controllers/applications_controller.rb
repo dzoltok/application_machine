@@ -94,7 +94,7 @@ class ApplicationsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def application_params
-      params.require(:application).permit(:goal, :user_id)
+      params.require(:application).permit(:goal, :user_id, :triage_required)
     end
 
     def fire_event_params

@@ -18,7 +18,7 @@ class Application < ActiveRecord::Base
     state :cancelled
 
     event :submit_application, success: :submit_application_success do
-      transitions from: :applying, to: :triage, :guard => :triage_required?
+      transitions from: :applying, to: :triage, if: :requires_triage?
       transitions from: :applying, to: :paperwork_sent
     end
 
@@ -50,8 +50,8 @@ class Application < ActiveRecord::Base
 
   private
 
-  def triage_required?
-    false
+  def requires_triage?
+    triage_required?
   end
 
   def create_event_tasks
@@ -71,6 +71,10 @@ class Application < ActiveRecord::Base
 
   def complete_paperwork_success
     user.activities.create(public_details: 'Completed Paperwork', happened_at: DateTime.now)
+  end
+
+  def cancel_success
+
   end
 
   def log_status_change

@@ -25,9 +25,9 @@ class TaskRecipe < ActiveRecord::Base
 
   def ops_user_for_category
     case category_name
-    when "Enrollment" then "Sarah"
-    when "Trading" then "Gary"
-    when "Premium" then "Maria"
+      when "Enrollment" then "Sarah"
+      when "Trading" then "Gary"
+      when "Premium" then "Maria"
     end
   end
 end

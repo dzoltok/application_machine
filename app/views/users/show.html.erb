@@ -16,7 +16,7 @@
     <tbody>
       <% @user.applications.each do |application| %>
         <tr>
-          <td><%= application.goal %></td>
+          <td><%= link_to application.goal, application %></td>
           <td><%= application.aasm.human_state %></td>
           <td>
             <% application.aasm.events.each do |event| %>
@@ -27,6 +27,8 @@
       <% end %>
     </tbody>
   </table>
+
+  <%= button_to 'Create New Application', applications_path, params: { 'application[goal]': 'retirement', 'application[user_id]': @user.id }, method: :post, class: 'btn btn-success' %>
 </div>
 
 <div>

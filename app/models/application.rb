@@ -11,7 +11,7 @@ class Application < ActiveRecord::Base
 
     state :applying, initial: true
     state :triage
-    state :paperwork_sent
+    state :paperwork_sent, after_enter: :paperwork_sent_after_entry
     state :processing
     state :trade_review
     state :trade_ready
@@ -50,6 +50,10 @@ class Application < ActiveRecord::Base
 
   private
 
+  def triage_required?
+    false
+  end
+
   def create_event_tasks
     event_name = aasm.current_event.to_s.gsub(/\!$/, '')
     recipes_for_event = TaskRecipe.where(event: event_name)
@@ -61,7 +65,7 @@ class Application < ActiveRecord::Base
     UserMailer.thanks_for_applying_email(user).deliver
   end
 
-  def send_paperwork_success
+  def paperwork_sent_after_entry
     UserMailer.docusign_sent_email(user).deliver
   end
 

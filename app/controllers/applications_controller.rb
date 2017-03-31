@@ -28,7 +28,10 @@ class ApplicationsController < ApplicationController
 
     respond_to do |format|
       if @application.save
-        format.html { redirect_to @application, notice: 'Application was successfully created.' }
+        format.html do
+          flash[:success] = 'Application was successfully created.'
+          redirect_to @application.user
+        end
         format.json { render :show, status: :created, location: @application }
       else
         format.html { render :new }

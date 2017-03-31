@@ -23,16 +23,19 @@ en:
   activerecord:
     events:
       application:
-        apply_to_managed: "Apply to Managed"
-        flag_for_triage: "Flag for Triage"
-        resolve_triage: "Resolve Triage"
-        complete_application: "Complete Application"
-        quarterly_rebalance: "Perform Rebalance"
+        submit_application: "Submit"
+        send_paperwork: "Send Paperwork"
+        complete_paperwork: "Complete Paperwork"
+        flag_for_trade_review: "Flag for Trade Review"
+        send_to_trading_team: "Send to Trading Team"
         cancel_application: "Cancel"
     attributes:
       application:
         aasm_state:
-          free: Free
-          applying: Applying for Managed
+          applying: Applying
           triage: Triage Required
-          ongoing: Ongoing Maintenance
+          paperwork_sent: Paperwork Sent
+          processing: Processing
+          trade_review: Trade Review
+          trade_ready: Trade Ready
+          cancelled: Cancelled

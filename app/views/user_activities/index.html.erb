@@ -1,14 +1,12 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Listing User Activities</h1>
+<h1>User Activities</h1>
 
 <table>
   <thead>
     <tr>
       <th>User</th>
-      <th>Happened at</th>
-      <th>Public details</th>
-      <th>Private details</th>
+      <th>Happened At</th>
+      <th>Public Details</th>
+      <th>Private Details</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -22,7 +20,7 @@
         <td><%= user_activity.private_details %></td>
         <td><%= link_to 'Show', user_activity %></td>
         <td><%= link_to 'Edit', edit_user_activity_path(user_activity) %></td>
-        <td><%= link_to 'Destroy', user_activity, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= button_to 'Destroy', user_activity, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -30,4 +28,4 @@
 
 <br>
 
-<%= link_to 'New User activity', new_user_activity_path %>
+<%= link_to 'New User Activity', new_user_activity_path %>

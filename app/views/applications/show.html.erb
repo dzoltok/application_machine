@@ -1,4 +1,4 @@
-<p id="notice"><%= notice %></p>
+<h1>Application #<%= @application.id %></h1>
 
 <p>
   <strong>Goal:</strong>
@@ -7,9 +7,16 @@
 
 <p>
   <strong>User:</strong>
-  <%= @application.user %>
+  <%= @application.user.email_address %>
 </p>
 
-<%= link_to 'Edit', edit_application_path(@application) %> |
-<%= link_to 'Destroy', @application, method: :delete, data: { confirm: 'Are you sure?' } %></td> |
-<%= link_to 'Back', applications_path %>
+<p>
+  <strong>Triage Required?:</strong>
+  <%= @application.triage_required? %>
+</p>
+
+<div class="btn-group">
+  <%= link_to 'Back', applications_path, class: 'btn btn-primary' %>
+  <%= link_to 'Edit', edit_application_path(@application), class: 'btn btn-primary' %>
+  <%= button_to 'Destroy', @application, class: 'btn btn-danger', method: :delete, data: { confirm: 'Are you sure?' } %></td>
+</div>

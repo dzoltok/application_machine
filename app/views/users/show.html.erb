@@ -1,3 +1,5 @@
+<h1>User #<%= @user.id %></h1>
+
 <p>
   <strong>Email Address:</strong>
   <%= @user.email_address %>
@@ -21,9 +23,11 @@
           <td><%= application.aasm.human_state %></td>
           <td><%= application.triage_required? %></td>
           <td>
-            <% application.aasm.events.each do |event| %>
-              <%= button_to Application.aasm.human_event_name(event.name), fire_event_application_path(application), params: { 'application[event]': event.name }, method: :post, class: 'btn btn-primary' %>
-            <% end %>
+            <div class="btn-group" role="group">
+              <% application.aasm.events.each do |event| %>
+                <%= button_to Application.aasm.human_event_name(event.name), fire_event_application_path(application), params: { 'application[event]': event.name }, method: :post, class: 'btn btn-primary' %>
+              <% end %>
+            </div>
           </td>
         </tr>
       <% end %>
@@ -35,7 +39,7 @@
 
 <div>
   <h2>User Activity</h2>
-  <table class="table">
+  <table class="table table-hover">
     <thead>
       <th>Event</th>
       <th>On</th>

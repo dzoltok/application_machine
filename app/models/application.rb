@@ -6,6 +6,8 @@ class Application < ActiveRecord::Base
   validates :user_id, presence: true
   validates :goal, presence: true
 
+  after_create :create_user_activity
+
   aasm do
     after_all_events [:create_event_tasks, :log_status_change]
 
@@ -50,6 +52,10 @@ class Application < ActiveRecord::Base
 
   private
 
+  def create_user_activity
+    user.activities.create(public_details: 'Started Application', happened_at: DateTime.now)
+  end
+
   def requires_triage?
     triage_required?
   end
@@ -74,7 +80,7 @@ class Application < ActiveRecord::Base
   end
 
   def cancel_success
-
+    user.activities.create(public_details: 'Cancelled Application', happened_at: DateTime.now)
   end
 
   def log_status_change

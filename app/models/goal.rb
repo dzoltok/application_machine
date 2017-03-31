@@ -8,18 +8,18 @@ class Goal < ActiveRecord::Base
 
     state :free, initial: true
     state :applying, after_exit: :thank_user_for_applying
-    state :triage, after_enter: :notify_triage_required
+    state :triage
     state :ongoing
 
-    event :apply_to_managed, success: :track_user_started_application do
+    event :begin_application, success: :begin_application_success do
       transitions from: :free, to: :applying
     end
 
-    event :flag_for_triage, success: :track_user_application_triage do
+    event :flag_for_triage, success: :flag_for_triage_success do
       transitions from: :applying, to: :triage
     end
 
-    event :complete_application, success: :track_user_application_completed do
+    event :complete_application, success: :complete_application_success do
       transitions from: :applying, to: :ongoing
     end
 
@@ -42,33 +42,30 @@ class Goal < ActiveRecord::Base
 
   def create_event_tasks
     event_name = aasm.current_event.to_s.gsub(/\!$/, '')
-
     recipes_for_event = TaskRecipe.where(event: event_name)
-
     recipes_for_event.each { |recipe| recipe.create_task }
   end
 
-  def notify_triage_required
-    Task.create(description: "Follow up with user #{user.id} in triage", assigned_to: 'enrollment', due_at: 1.day.from_now)
-  end
-
-  def log_status_change
-    Rails.logger.info "#{DateTime.now.iso8601}: Goal #{id} changing from #{aasm.from_state} to #{aasm.to_state} (event: #{aasm.current_event})"
-  end
-
-  def track_user_started_application
+  # Create user activities on transition
+  def begin_application_success
     user.activities.create(public_details: 'Started Application', happened_at: DateTime.now)
   end
 
-  def track_user_application_completed
+  def complete_application_success
     user.activities.create(public_details: 'Finished Application', happened_at: DateTime.now)
   end
 
-  def track_user_application_triage
+  def flag_for_triage_success
     user.activities.create(public_details: 'Finished Application', private_details: 'Finished Application (triage required)', happened_at: DateTime.now)
   end
 
+  # E-mail users on event
   def thank_user_for_applying
     UserMailer.thanks_for_applying_email(user).deliver
+  end
+
+
+  def log_status_change
+    Rails.logger.info "#{DateTime.now.iso8601}: Goal #{id} changing from #{aasm.from_state} to #{aasm.to_state} (event: #{aasm.current_event})"
   end
 end

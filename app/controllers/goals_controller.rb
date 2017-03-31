@@ -10,19 +10,21 @@ class GoalsController < ApplicationController
   # POST /goals/1/fire_event.json
   def fire_event
     event = fire_event_params[:event]
-    if @goal.aasm.events.map(&:name).include? event.to_sym
-      @goal.send("#{event}!")
-      format.html do
-        flash[:success] = 'Goal managed state has been updated.'
-        redirect_to @goal.user
+    respond_to do |format|
+      if @goal.aasm.events.map(&:name).include? event.to_sym
+        @goal.send("#{event}!")
+        format.html {
+          flash[:success] = 'Goal managed state has been updated.'
+          redirect_to @goal.user
+        }
+        format.json { render :show, status: :ok, location: @task }
+      else
+        format.html {
+          flash[:danger] = 'Event is invalid.'
+          redirect_to @goal.user
+        }
+        format.json { render json: @goal.errors, status: :unprocessable_entity }
       end
-      format.json { render :show, status: :ok, location: @task }
-    else
-      format.html do
-        flash[:danger] = 'Event is invalid.'
-        redirect_to @goal.user
-      end
-      format.json { render json: @goal.errors, status: :unprocessable_entity }
     end
   end
 

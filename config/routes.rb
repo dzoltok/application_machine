@@ -1,11 +1,11 @@
 Rails.application.routes.draw do
-  resources :task_recipes
-  resources :users
-  resources :goals, only: [:show] do
+  resources :applications do
     member do
       post :fire_event
     end
   end
+  resources :task_recipes
+  resources :users
   resources :tasks
   resources :user_activities
 

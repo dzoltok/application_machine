@@ -4,23 +4,23 @@
 </p>
 
 <div>
-  <h2>Goals:</h2>
+  <h2>Applications:</h2>
 
   <table class="table">
     <thead>
-      <th>Type</th>
+      <th>Goal</th>
       <th>State</th>
       <th>Actions</th>
     </thead>
 
     <tbody>
-      <% @user.goals.each do |goal| %>
+      <% @user.applications.each do |application| %>
         <tr>
-          <td><%= goal.goal_type %></td>
-          <td><%= goal.aasm.human_state %></td>
+          <td><%= application.goal %></td>
+          <td><%= application.aasm.human_state %></td>
           <td>
-            <% goal.aasm.events.each do |event| %>
-              <%= button_to Goal.aasm.human_event_name(event.name), fire_event_goal_path(goal), params: { 'goal[event]': event.name }, method: :post, class: 'btn btn-primary' %>
+            <% application.aasm.events.each do |event| %>
+              <%= button_to Application.aasm.human_event_name(event.name), fire_event_application_path(application), params: { 'application[event]': event.name }, method: :post, class: 'btn btn-primary' %>
             <% end %>
           </td>
         </tr>

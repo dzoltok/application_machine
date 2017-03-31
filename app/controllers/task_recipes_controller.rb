@@ -5,7 +5,7 @@ class TaskRecipesController < ApplicationController
   # GET /task_recipes.json
   def index
     @task_recipes = TaskRecipe.all
-    @events = Goal.aasm.events.map(&:name)
+    @events = Application.aasm.events.map(&:name)
   end
 
   # GET /task_recipes/1
@@ -64,8 +64,8 @@ class TaskRecipesController < ApplicationController
 
   private
     def set_dropdown_options
-      @events = Goal.aasm.events.map(&:name)
-      @events_for_select = @events.map{ |event| [Goal.aasm.human_event_name(event), event] }
+      @events = Application.aasm.events.map(&:name)
+      @events_for_select = @events.map{ |event| [Application.aasm.human_event_name(event), event] }
       @task_categories_for_select = TaskRecipe::TASK_CATEGORIES
     end
 

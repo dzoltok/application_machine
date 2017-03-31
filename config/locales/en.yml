@@ -22,7 +22,7 @@
 en:
   activerecord:
     events:
-      goal:
+      application:
         apply_to_managed: "Apply to Managed"
         flag_for_triage: "Flag for Triage"
         resolve_triage: "Resolve Triage"
@@ -30,7 +30,7 @@ en:
         quarterly_rebalance: "Perform Rebalance"
         cancel_application: "Cancel"
     attributes:
-      goal:
+      application:
         aasm_state:
           free: Free
           applying: Applying for Managed
